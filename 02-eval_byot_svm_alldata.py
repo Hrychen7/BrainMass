@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--seed",'-s', type=int,default = 42)
 parser.add_argument("--config_path",'-c', type=str,default = "")
 parser.add_argument("--data",'-d', type=str,default = "")
+parser.add_argument("--root",'-r', type=str,default = "")
 parser.add_argument("--csv",'-f', type=str,default = "")
 
 args = parser.parse_args()
@@ -40,14 +41,14 @@ config_path = args.config_path
 
 config = yaml.load(open(config_path, "r"), Loader=yaml.FullLoader)
 
-root = "/path/to/alldata"
+
 mask_way=config['data']['mask_way']
 mask_len=int(config['data']['time_mask'])
 time_len=int(config['data']['time_len'])
 
-train_dataset = Task2Data(root, args.csv, mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=True,is_test=False)
-val_dataset = Task2Data(root, args.csv,mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=False,is_test=False)
-test_dataset = Task2Data(root, args.csv,mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=False,is_test=True)
+train_dataset = Task2Data(args.root, args.csv, mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=True,is_test=False)
+val_dataset = Task2Data(args.root, args.csv,mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=False,is_test=False)
+test_dataset = Task2Data(args.root, args.csv,mask_way,mask_len,time_len,shuffle_seed=shuffle_seed,is_train=False,is_test=True)
 
 train_loader = DataLoader(train_dataset, batch_size=batch_size,
                           num_workers=4, drop_last=False, shuffle=True)
