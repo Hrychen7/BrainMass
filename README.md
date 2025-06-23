@@ -29,12 +29,7 @@ python -m torch.distributed.launch --nproc_per_node=4 01-ddp_byol.py --config co
 
 
 ## Downstream evaluation:
-1. You need to change the root of the evaluation files in "02-eval_byot_svm_alldata.py" 43 to your path:
-
-```python
-root = "/path/to/alldata"
-```
-2. You need to prepare your own data in the down_stream folder:
+1. You need to prepare your own data in the down_stream folder:
    
    These csv files are like:
 
@@ -43,9 +38,9 @@ root = "/path/to/alldata"
         xuanwu_002,1,0,1
         ...
 
-3. For downstream evaluation, you can run like:
+2. For downstream evaluation, you can run like:
 ```shell
-python 02-eval_byot_svm_alldata.py -c config/normal_sch1.yaml -d abide1 -f checkpoints/checkpoints_test/test.pth
+python 02-eval_byot_svm_alldata.py -c config/normal_sch1.yaml -d abide1 -f checkpoints/checkpoints_test/test.pth -r  /path/to/alldata
 ```
 
 
